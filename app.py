@@ -51,7 +51,7 @@ HTML_TEMPLATE = """
 </head>
 <body>
     <div class="container">
-        <h2>HR Attendance Portal</h2>
+        <h2>Clock In/Out Portal</h2>
         <p id="user-display">Welcome, Guest</p>
         
         <button class="btn-reg" onclick="registerUser()">1. Register / Switch User</button>
@@ -295,6 +295,6 @@ def admin_init_db():
   )
 
 
+init_db()
 if __name__ == "__main__":
-  init_db()
   app.run(host="0.0.0.0", port=5000, debug=True)
