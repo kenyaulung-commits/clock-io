@@ -294,6 +294,40 @@ def admin_init_db():
       {"status": "success", "message": "Database re-initialized successfully."}
   )
 
+@app.route("/api/admin/list", methods=['GET'])
+def admin_list():
+    try:
+        # 1. Connect to your hardcoded SQLite database
+        conn = sqlite3.connect("hr_attendance.db")
+        
+        # 2. Configure rows to behave like dictionaries (allows fetching by column name)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        
+        # 3. Execute query (replace 'attendance_records' with your actual table name)
+        cursor.execute("SELECT * FROM attendance_records")
+        rows = cursor.fetchall()
+        
+        # 4. Convert SQL rows into a list of standard Python dictionaries
+        database_info = [dict(row) for row in rows]
+        
+        # 5. Close the database connection
+        conn.close()
+        
+        # 6. Return the data as a JSON payload
+        return jsonify({
+            "status": "success",
+            "total_records": len(database_info),
+            "data": database_info
+        }), 200
+
+    except sqlite3.Error as e:
+        # Handle database connection or query errors gracefully
+        return jsonify({
+            "status": "error",
+            "message": f"Database error: {str(e)}"
+        }), 500
+
 
 init_db()
 if __name__ == "__main__":
