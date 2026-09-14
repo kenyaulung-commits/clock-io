@@ -305,7 +305,7 @@ def admin_list():
         cursor = conn.cursor()
         
         # 3. Execute query (replace 'attendance_records' with your actual table name)
-        cursor.execute("SELECT * FROM attendance_records")
+        cursor.execute("SELECT * FROM attendance")
         rows = cursor.fetchall()
         
         # 4. Convert SQL rows into a list of standard Python dictionaries
